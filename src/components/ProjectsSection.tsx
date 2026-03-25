@@ -118,7 +118,7 @@ const ProjectsSection = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>
