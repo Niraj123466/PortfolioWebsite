@@ -11,6 +11,7 @@ const projects = [
     impact: ["Automated resume screening", "SaaS with payment integration", "🏆 3rd place Hackathon"],
     icon: Layers,
     category: "AI",
+    github: "https://github.com/Niraj123466/AI-Powered-Resume-Screening",
   },
   {
     title: "Anonymous Messaging Platform",
@@ -20,6 +21,7 @@ const projects = [
     impact: ["Real-time messaging system", "ChatGPT smart replies", "Privacy & concurrency"],
     icon: MessageSquare,
     category: "Full Stack",
+    github: "https://github.com/Niraj123466/Anonymous-messages",
   },
   {
     title: "Google Drive MCP Server",
@@ -29,6 +31,7 @@ const projects = [
     impact: ["Two-stage retrieval pipeline", "Improved accuracy", "Reduced retrieval cost"],
     icon: Database,
     category: "AI",
+    github: "https://github.com/Niraj123466/gdrivemcp",
   },
 ];
 
@@ -73,12 +76,15 @@ const ProjectsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((project, i) => (
-            <motion.div
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.15 }}
-              className="group p-6 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300 flex flex-col"
+              className="group p-6 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300 flex flex-col cursor-pointer"
             >
               <div className="flex items-center justify-between mb-4">
                 <project.icon className="w-8 h-8 text-primary" />
@@ -112,7 +118,7 @@ const ProjectsSection = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>
