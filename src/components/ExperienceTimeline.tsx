@@ -1,0 +1,95 @@
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { Briefcase } from "lucide-react";
+
+const experiences = [
+  {
+    role: "AI Intern",
+    company: "Scrobits Technologies LLP",
+    period: "Nov 2024 – Present",
+    location: "Pune",
+    points: [
+      "Built MahaAMRUT AI Chatbot — production-grade multi-agent system for Maharashtra tourism",
+      "Designed 3-tier caching system (SQL + Redis + semantic) achieving 70%+ cache hit rate",
+      "Implemented RAG pipeline using Weaviate + Pinecone vector databases",
+      "Built WebSocket-based human-in-the-loop escalation system",
+      "Tech: LangGraph, FastAPI, Google Gemini, Docker, AWS EC2",
+    ],
+  },
+  {
+    role: "Full Stack Intern",
+    company: "Coneixement India Pvt Ltd",
+    period: "Jan 2025 – June 2025",
+    location: "India",
+    points: [
+      "Developed scalable features using Next.js for production applications",
+      "Designed REST APIs handling concurrent users efficiently",
+      "Implemented backend validation and fault-tolerant systems",
+      "Collaborated in Agile environment with cross-functional teams",
+    ],
+  },
+];
+
+const ExperienceTimeline = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <section id="experience" className="py-24 bg-surface/50">
+      <div className="container mx-auto px-4" ref={ref}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="font-mono text-primary text-sm mb-2 tracking-widest uppercase">Experience</p>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-12">
+            Where I've <span className="text-gradient">Worked</span>
+          </h2>
+        </motion.div>
+
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px" />
+
+          {experiences.map((exp, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 + i * 0.2 }}
+              className={`relative flex flex-col md:flex-row items-start mb-12 ${
+                i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              }`}
+            >
+              {/* Dot */}
+              <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary border-2 border-background -translate-x-1.5 md:-translate-x-1.5 mt-6 z-10 glow-primary" />
+
+              {/* Card */}
+              <div className={`ml-10 md:ml-0 md:w-1/2 ${i % 2 === 0 ? "md:pr-12" : "md:pl-12"}`}>
+                <div className="p-6 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300">
+                  <div className="flex items-center gap-2 text-primary mb-1">
+                    <Briefcase className="w-4 h-4" />
+                    <span className="font-mono text-xs">{exp.period}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground">{exp.role}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{exp.company} · {exp.location}</p>
+                  <ul className="space-y-2">
+                    {exp.points.map((point, j) => (
+                      <li key={j} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <span className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ExperienceTimeline;
