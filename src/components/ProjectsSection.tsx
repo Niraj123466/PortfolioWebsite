@@ -11,6 +11,7 @@ const projects = [
     impact: ["Automated resume screening", "SaaS with payment integration", "🏆 3rd place Hackathon"],
     icon: Layers,
     category: "AI",
+    github: "https://github.com/Niraj123466/AI-Powered-Resume-Screening",
   },
   {
     title: "Anonymous Messaging Platform",
@@ -20,6 +21,7 @@ const projects = [
     impact: ["Real-time messaging system", "ChatGPT smart replies", "Privacy & concurrency"],
     icon: MessageSquare,
     category: "Full Stack",
+    github: "https://github.com/Niraj123466/Anonymous-messages",
   },
   {
     title: "Google Drive MCP Server",
@@ -29,6 +31,7 @@ const projects = [
     impact: ["Two-stage retrieval pipeline", "Improved accuracy", "Reduced retrieval cost"],
     icon: Database,
     category: "AI",
+    github: "https://github.com/Niraj123466/gdrivemcp",
   },
 ];
 
