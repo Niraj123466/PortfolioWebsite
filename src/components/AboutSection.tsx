@@ -30,15 +30,16 @@ const AboutSection = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div className="space-y-5 text-muted-foreground leading-relaxed">
               <p>
-                I am a Software Engineer with strong foundations in Data Structures, Algorithms, Operating Systems, and Object-Oriented Programming. I specialize in building scalable AI-powered and distributed systems using modern technologies like React.js, Node.js, and Python.
+                Software Engineer with strong foundations in Data Structures, Algorithms, Operating Systems, and Object-Oriented Programming. Proficient in C++, Python, and system-level thinking, with experience building scalable, distributed full-stack applications using React.js, Node.js, and MongoDB.
               </p>
               <p>
-                I enjoy solving complex problems, designing efficient architectures, and delivering impactful software products. I am passionate about AI systems, backend engineering, and real-world problem solving.
+                Passionate about solving complex technical problems, building mission-critical tools, and working in agile environments. Adept at handling ambiguous problems, learning fast, and delivering high-impact software.
               </p>
               <div className="pt-2">
                 <p className="text-sm font-mono text-primary mb-1">Education</p>
                 <p className="text-foreground font-semibold">B.E. in Artificial Intelligence & Data Science</p>
                 <p className="text-sm">Marathwada Mitra Mandal's College of Engineering, Pune</p>
+                <p className="text-xs text-muted-foreground mt-1">2022 – Present · CGPA: 9.21</p>
               </div>
             </div>
 

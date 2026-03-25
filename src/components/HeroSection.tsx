@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, Code2, Trophy, Award } from "lucide-react";
+import ParticleBackground from "./ParticleBackground";
 
 const titles = [
   "AI Systems Engineer",
@@ -36,6 +37,8 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
+      {/* Particle constellation */}
+      <ParticleBackground />
       {/* Ambient blobs */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
@@ -90,7 +93,9 @@ const HeroSection = () => {
             {[
               { icon: Github, href: "https://github.com/Niraj123466", label: "GitHub" },
               { icon: Linkedin, href: "https://www.linkedin.com/in/niraj-more-839b64382/", label: "LinkedIn" },
-              { icon: Mail, href: "mailto:moreniraj49@gmail.com", label: "Email" },
+              { icon: Mail, href: "https://mail.google.com/mail/?view=cm&to=moreniraj49@gmail.com", label: "Email" },
+              { icon: Code2, href: "https://www.hackerrank.com/profile/moreniraj49", label: "HackerRank" },
+              { icon: Trophy, href: "https://leetcode.com/u/Niraj123466/", label: "LeetCode" },
             ].map(({ icon: Icon, href, label }) => (
               <a
                 key={label}

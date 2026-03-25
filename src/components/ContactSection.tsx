@@ -109,7 +109,7 @@ const ContactSection = () => {
             <div className="space-y-6">
               <p className="text-sm text-muted-foreground">Or reach out directly:</p>
               {[
-                { icon: Mail, label: "moreniraj49@gmail.com", href: "mailto:moreniraj49@gmail.com" },
+                { icon: Mail, label: "moreniraj49@gmail.com", href: "https://mail.google.com/mail/?view=cm&to=moreniraj49@gmail.com" },
                 { icon: Github, label: "github.com/Niraj123466", href: "https://github.com/Niraj123466" },
                 { icon: Linkedin, label: "LinkedIn Profile", href: "https://www.linkedin.com/in/niraj-more-839b64382/" },
               ].map(({ icon: Icon, label, href }) => (

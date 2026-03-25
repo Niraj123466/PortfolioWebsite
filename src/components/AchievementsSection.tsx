@@ -75,19 +75,25 @@ const AchievementsSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.6 }}
-          className="mt-10 grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto"
+          className="mt-10 max-w-3xl mx-auto"
         >
-          {[
-            "5-star coder on HackerRank (C++, Python)",
-            "Solved 220+ DSA problems on LeetCode",
-            "3rd place in Hackathon (AI Resume System)",
-            "Certified in Full Stack Dev, Docker, Cloud",
-          ].map((item) => (
-            <div key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-              {item}
-            </div>
-          ))}
+          <p className="font-mono text-primary text-xs mb-4 tracking-widest uppercase text-center">Highlights & Certifications</p>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {[
+              "5-star coder on HackerRank (C++, Python)",
+              "Solved 220+ DSA problems on LeetCode",
+              "3rd place at Hacksprints 6.0 (AI Resume System)",
+              "Certified: Full Stack Development",
+              "Certified: Docker & Containerization",
+              "Certified: React.js & Node.js",
+              "Certified: Cloud Computing",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-2 text-sm text-muted-foreground p-3 rounded-lg bg-card border border-border hover:border-primary/30 transition-colors">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                {item}
+              </div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

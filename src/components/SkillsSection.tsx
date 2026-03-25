@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Code, Globe, Brain, Wrench, Cloud, Cpu } from "lucide-react";
+import { Code, Globe, Brain, Wrench, Cloud, Cpu, Users } from "lucide-react";
 
 const skillCategories = [
   {
@@ -11,7 +11,7 @@ const skillCategories = [
   {
     title: "Web",
     icon: Globe,
-    skills: ["React.js", "Next.js", "Node.js", "Express.js"],
+    skills: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Appwrite"],
   },
   {
     title: "AI & Systems",
@@ -32,6 +32,11 @@ const skillCategories = [
     title: "Core CS",
     icon: Cpu,
     skills: ["DSA", "OS", "DBMS", "Networks", "OOP"],
+  },
+  {
+    title: "Soft Skills",
+    icon: Users,
+    skills: ["Ownership", "Technical Communication", "Problem Solving", "Time Management"],
   },
 ];
 
