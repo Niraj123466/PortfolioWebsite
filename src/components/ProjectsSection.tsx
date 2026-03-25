@@ -76,12 +76,15 @@ const ProjectsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((project, i) => (
-            <motion.div
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
               key={project.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.15 }}
-              className="group p-6 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300 flex flex-col"
+              className="group p-6 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300 flex flex-col cursor-pointer"
             >
               <div className="flex items-center justify-between mb-4">
                 <project.icon className="w-8 h-8 text-primary" />
