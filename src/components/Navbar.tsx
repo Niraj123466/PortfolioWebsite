@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { Menu, X, Terminal } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
@@ -32,6 +32,13 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <motion.nav
       initial={{ y: -80 }}
@@ -41,6 +48,10 @@ const Navbar = () => {
         scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-lg" : "bg-transparent"
       }`}
     >
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary origin-left z-50"
+        style={{ scaleX }}
+      />
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <a href="#" className="flex items-center gap-2 font-mono font-bold text-primary text-lg">
           <Terminal className="w-5 h-5" />
