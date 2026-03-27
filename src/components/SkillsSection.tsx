@@ -1,6 +1,9 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, lazy, Suspense } from "react";
 import { Code, Globe, Brain, Wrench, Cloud, Cpu, Users } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const SkillsSphere = lazy(() => import("./SkillsSphere"));
 
 const skillCategories = [
   {
@@ -43,6 +46,7 @@ const skillCategories = [
 const SkillsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const isMobile = useIsMobile();
 
   return (
     <section id="skills" className="py-24 bg-surface/50">
@@ -58,6 +62,21 @@ const SkillsSection = () => {
           </h2>
         </motion.div>
 
+        {/* 3D Sphere on desktop */}
+        {!isMobile && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-12"
+          >
+            <Suspense fallback={<div className="h-[500px]" />}>
+              <SkillsSphere />
+            </Suspense>
+          </motion.div>
+        )}
+
+        {/* Grid below (always visible) */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map(({ title, icon: Icon, skills }, i) => (
             <motion.div

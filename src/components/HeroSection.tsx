@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, Code2, Trophy, Award } from "lucide-react";
-import ParticleBackground from "./ParticleBackground";
+
+const HeroScene = lazy(() => import("./HeroScene"));
 
 const titles = [
   "AI Systems Engineer",
@@ -36,9 +37,11 @@ const HeroSection = () => {
   }, [charIndex, deleting, titleIndex]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
-      {/* Particle constellation */}
-      <ParticleBackground />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* 3D Scene */}
+      <Suspense fallback={<div className="absolute inset-0 grid-bg" />}>
+        <HeroScene />
+      </Suspense>
       {/* Ambient blobs */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "1.5s" }} />

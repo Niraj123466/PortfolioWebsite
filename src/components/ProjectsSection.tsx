@@ -74,7 +74,7 @@ const ProjectsSection = () => {
           </div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1000px" }}>
           {filtered.map((project, i) => (
             <motion.a
               href={project.github}
@@ -85,6 +85,18 @@ const ProjectsSection = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.15 }}
               className="group p-6 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300 flex flex-col cursor-pointer"
+              style={{ transformStyle: "preserve-3d" }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateX = ((y - rect.height / 2) / rect.height) * -8;
+                const rotateY = ((x - rect.width / 2) / rect.width) * 8;
+                e.currentTarget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+              }}
             >
               <div className="flex items-center justify-between mb-4">
                 <project.icon className="w-8 h-8 text-primary" />

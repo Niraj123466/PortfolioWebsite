@@ -1,6 +1,8 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, lazy, Suspense } from "react";
 import { Mail, Github, Linkedin, Send, ArrowUpRight, CheckCircle } from "lucide-react";
+
+const ContactGlobe = lazy(() => import("./ContactGlobe"));
 
 const ContactSection = () => {
   const ref = useRef(null);
@@ -127,6 +129,11 @@ const ContactSection = () => {
                   <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                 </a>
               ))}
+
+              {/* 3D Globe */}
+              <Suspense fallback={<div className="h-[280px]" />}>
+                <ContactGlobe />
+              </Suspense>
             </div>
           </div>
         </motion.div>
