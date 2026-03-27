@@ -43,20 +43,38 @@ const AboutSection = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              {highlights.map(({ icon: Icon, label, desc }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                  className="p-5 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300 group"
-                >
-                  <Icon className="w-6 h-6 text-primary mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-semibold text-foreground mb-1">{label}</h3>
-                  <p className="text-xs text-muted-foreground">{desc}</p>
-                </motion.div>
-              ))}
+            <div className="flex flex-col items-center gap-8">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative"
+              >
+                <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-primary/30 glow-primary">
+                  <img
+                    src="/ProfilePic.png"
+                    alt="Niraj More"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -inset-3 rounded-full border border-primary/10 animate-pulse-glow pointer-events-none" />
+              </motion.div>
+
+              <div className="grid grid-cols-2 gap-4 w-full">
+                {highlights.map(({ icon: Icon, label, desc }, i) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                    className="p-5 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300 group"
+                  >
+                    <Icon className="w-6 h-6 text-primary mb-3 group-hover:scale-110 transition-transform" />
+                    <h3 className="font-semibold text-foreground mb-1">{label}</h3>
+                    <p className="text-xs text-muted-foreground">{desc}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
