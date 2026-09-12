@@ -1,110 +1,86 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, lazy, Suspense } from "react";
-import { Code, Globe, Brain, Wrench, Cloud, Cpu, Users } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useRef } from "react";
 
-const SkillsSphere = lazy(() => import("./SkillsSphere"));
-
-const skillCategories = [
+const skillGroups = [
   {
-    title: "Languages",
-    icon: Code,
+    category: "Languages",
     skills: ["C++", "Python", "JavaScript", "TypeScript", "SQL"],
   },
   {
-    title: "Web",
-    icon: Globe,
-    skills: ["React.js", "Next.js", "Node.js", "Express.js", "MongoDB", "Appwrite"],
+    category: "Frontend",
+    skills: ["React.js", "Next.js", "Tailwind CSS", "HTML/CSS"],
   },
   {
-    title: "AI & Systems",
-    icon: Brain,
-    skills: ["LangChain", "RAG", "Vector DBs", "Multi-agent"],
+    category: "Backend & APIs",
+    skills: ["Node.js", "Express.js", "FastAPI", "REST", "WebSocket"],
   },
   {
-    title: "Tools",
-    icon: Wrench,
-    skills: ["Docker", "Git", "GitHub", "Postman"],
+    category: "AI & Systems",
+    skills: ["LangChain", "RAG Pipelines", "Multi-agent", "Vector DBs", "Embeddings", "FastMCP"],
   },
   {
-    title: "Cloud",
-    icon: Cloud,
-    skills: ["AWS", "Firebase"],
+    category: "Databases",
+    skills: ["MongoDB", "PostgreSQL", "Supabase", "Redis", "Firebase", "Appwrite"],
   },
   {
-    title: "Core CS",
-    icon: Cpu,
+    category: "Infrastructure",
+    skills: ["Docker", "AWS EC2", "Git", "GitHub", "Postman", "Linux"],
+  },
+  {
+    category: "Core CS",
     skills: ["DSA", "OS", "DBMS", "Networks", "OOP"],
-  },
-  {
-    title: "Soft Skills",
-    icon: Users,
-    skills: ["Ownership", "Technical Communication", "Problem Solving", "Time Management"],
   },
 ];
 
 const SkillsSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const isMobile = useIsMobile();
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="skills" className="py-24 bg-surface/50">
-      <div className="container mx-auto px-4" ref={ref}>
+    <section id="skills" className="py-32 border-t border-border">
+      <div className="container mx-auto px-6" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          <p className="font-mono text-primary text-sm mb-2 tracking-widest uppercase">Skills</p>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-12">
-            My <span className="text-gradient">Tech Stack</span>
-          </h2>
-        </motion.div>
-
-        {/* 3D Sphere on desktop */}
-        {!isMobile && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12"
+          <span className="section-label">Skills</span>
+          <h2
+            className="text-foreground font-semibold mt-1 mb-12"
+            style={{
+              fontSize: "clamp(1.5rem, 3vw, 2rem)",
+              letterSpacing: "-0.025em",
+            }}
           >
-            <Suspense fallback={<div className="h-[500px]" />}>
-              <SkillsSphere />
-            </Suspense>
-          </motion.div>
-        )}
+            Tech Stack
+          </h2>
 
-        {/* Grid below (always visible) */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map(({ title, icon: Icon, skills }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-              className="p-6 rounded-xl bg-card border border-border hover:glow-border transition-all duration-300"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Icon className="w-5 h-5 text-primary" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10">
+            {skillGroups.map(({ category, skills }, i) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{
+                  duration: 0.5,
+                  delay: 0.08 + i * 0.07,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+              >
+                <p className="text-[10px] font-mono text-primary tracking-widest uppercase mb-3">
+                  {category}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <span key={skill} className="skill-pill">
+                      {skill}
+                    </span>
+                  ))}
                 </div>
-                <h3 className="font-semibold text-foreground">{title}</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 text-sm rounded-lg bg-secondary text-foreground font-mono hover:bg-primary/10 hover:text-primary transition-colors cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,129 +1,180 @@
-import { useEffect, useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail, Code2, Trophy, Award } from "lucide-react";
+import { Github, Linkedin, ArrowDown } from "lucide-react";
 
-const HeroScene = lazy(() => import("./HeroScene"));
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+};
 
-const titles = [
-  "AI Systems Engineer",
-  "Full Stack Developer",
-  "Multi-Agent Architect",
-  "Problem Solver",
-];
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] } },
+};
 
 const HeroSection = () => {
-  const [titleIndex, setTitleIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = titles[titleIndex];
-    const timeout = deleting ? 40 : 80;
-
-    if (!deleting && charIndex === current.length) {
-      setTimeout(() => setDeleting(true), 2000);
-      return;
-    }
-    if (deleting && charIndex === 0) {
-      setDeleting(false);
-      setTitleIndex((prev) => (prev + 1) % titles.length);
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setCharIndex((prev) => prev + (deleting ? -1 : 1));
-    }, timeout);
-    return () => clearTimeout(timer);
-  }, [charIndex, deleting, titleIndex]);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Scene */}
-      <Suspense fallback={<div className="absolute inset-0 grid-bg" />}>
-        <HeroScene />
-      </Suspense>
-      {/* Ambient blobs */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+    <section
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+      aria-label="Introduction"
+    >
+      {/* Dot grid background */}
+      <div className="absolute inset-0 dot-grid" aria-hidden="true" />
 
-      <div className="container mx-auto px-4 pt-20 relative z-10">
+      {/* Subtle radial vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 40%, transparent 40%, hsl(var(--background)) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="container mx-auto px-6 relative z-10 pt-20 pb-16">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center"
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="max-w-4xl"
         >
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="font-mono text-primary text-sm mb-4 tracking-widest uppercase"
+          {/* Status */}
+          <motion.div variants={item} className="flex items-center gap-2 mb-10">
+            <span
+              className="status-dot animate-[status-pulse_2s_ease-in-out_infinite]"
+              aria-hidden="true"
+            />
+            <span className="text-xs text-muted-foreground font-mono tracking-wide">
+              Open to opportunities · Pune, India
+            </span>
+          </motion.div>
+
+          {/* Name — display typography */}
+          <motion.h1
+            variants={item}
+            className="font-sans font-black text-foreground mb-3"
+            style={{
+              fontSize: "clamp(2.75rem, 8vw, 5.75rem)",
+              letterSpacing: "-0.04em",
+              lineHeight: "1.0",
+            }}
           >
-            Hello, I'm
+            Niraj More
+          </motion.h1>
+
+          {/* Role line */}
+          <motion.p
+            variants={item}
+            className="text-muted-foreground font-mono text-sm mb-8 tracking-wide"
+          >
+            <span className="text-primary">Software Engineer</span>
+            {" · "}AI Systems{" · "}Full Stack Development
           </motion.p>
 
-          <h1 className="text-5xl sm:text-7xl font-black tracking-tight mb-4">
-            Niraj More
-          </h1>
+          {/* Positioning statement */}
+          <motion.p
+            variants={item}
+            className="text-foreground/80 mb-12 leading-relaxed max-w-xl"
+            style={{
+              fontSize: "clamp(1rem, 2vw, 1.2rem)",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            Building production-grade AI systems, multi-agent architectures,
+            and scalable full-stack applications. From chatbots that serve
+            government initiatives to RAG pipelines in production.
+          </motion.p>
 
-          <div className="h-10 sm:h-12 flex items-center justify-center mb-6">
-            <span className="text-xl sm:text-2xl font-mono text-gradient font-semibold">
-              {titles[titleIndex].slice(0, charIndex)}
-            </span>
-            <span className="w-0.5 h-6 bg-primary ml-1 animate-pulse" />
-          </div>
-
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Building scalable AI systems, multi-agent architectures, and real-world applications that solve meaningful problems.
-          </p>
-
-          <div className="flex items-center justify-center gap-4 mb-12">
-            <a
-              href="#contact"
-              className="px-6 py-3 rounded-lg font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all glow-primary"
-            >
-              Get in Touch
-            </a>
+          {/* CTAs */}
+          <motion.div variants={item} className="flex flex-wrap items-center gap-3 mb-14">
             <a
               href="#projects"
-              className="px-6 py-3 rounded-lg font-semibold border border-border text-foreground hover:bg-secondary transition-all"
+              className="btn-primary"
+              id="hero-view-work-cta"
             >
-              View Projects
+              Selected Work →
             </a>
-          </div>
+            <a
+              href="/NirajMore_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost"
+              id="hero-resume-cta"
+            >
+              Resume ↗
+            </a>
+          </motion.div>
 
-          <div className="flex items-center justify-center gap-5">
+          {/* Social links */}
+          <motion.div variants={item} className="flex items-center gap-6">
             {[
-              { icon: Github, href: "https://github.com/Niraj123466", label: "GitHub" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/niraj-more-839b64382/", label: "LinkedIn" },
-              { icon: Mail, href: "https://mail.google.com/mail/?view=cm&to=moreniraj49@gmail.com", label: "Email" },
-              { icon: Code2, href: "https://www.hackerrank.com/profile/moreniraj49", label: "HackerRank" },
-              { icon: Trophy, href: "https://leetcode.com/u/Niraj123466/", label: "LeetCode" },
-            ].map(({ icon: Icon, href, label }) => (
+              {
+                icon: Github,
+                label: "GitHub",
+                href: "https://github.com/Niraj123466",
+                text: "Niraj123466",
+              },
+              {
+                icon: Linkedin,
+                label: "LinkedIn",
+                href: "https://www.linkedin.com/in/niraj-more-839b64382/",
+                text: "niraj-more",
+              },
+              {
+                label: "LeetCode",
+                href: "https://leetcode.com/u/Niraj123466/",
+                text: "220+ solved",
+              },
+            ].map(({ icon: Icon, label, href, text }) => (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary hover:glow-border transition-all duration-300"
                 aria-label={label}
+                className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200 group"
               >
-                <Icon className="w-5 h-5" />
+                {Icon && (
+                  <Icon className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                )}
+                <span className="text-xs font-mono hover-underline">{text}</span>
               </a>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-8 left-6 md:left-12"
+        aria-hidden="true"
+      >
+        <a
+          href="#about"
+          className="flex flex-col items-center gap-2 text-muted-foreground/50 hover:text-muted-foreground transition-colors duration-300 animate-float"
+          aria-label="Scroll down"
         >
-          <a href="#about" className="text-muted-foreground hover:text-primary transition-colors animate-float">
-            <ArrowDown className="w-5 h-5" />
-          </a>
-        </motion.div>
+          <span className="font-mono text-[10px] tracking-widest rotate-90 origin-center">
+            scroll
+          </span>
+          <ArrowDown className="w-3.5 h-3.5" />
+        </a>
+      </motion.div>
+
+      {/* Decorative number */}
+      <div
+        className="absolute right-6 md:right-12 bottom-8 font-mono text-[10px] text-muted-foreground/25 tracking-widest"
+        aria-hidden="true"
+      >
+        01 / 07
       </div>
     </section>
   );
